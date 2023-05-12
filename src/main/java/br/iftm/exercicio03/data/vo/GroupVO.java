@@ -1,12 +1,14 @@
 package br.iftm.exercicio03.data.vo;
 
 import br.iftm.exercicio03.models.User;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class GroupVO implements Serializable {
+public class GroupVO extends RepresentationModel<GroupVO> implements Serializable {
 
     private Long id;
     private String name;

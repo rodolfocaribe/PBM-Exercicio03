@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ public class EmailController {
     @Autowired
     private EmailService service;
 
-    @GetMapping
+    @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Find all emails.", description = "Find all emails.", tags = {"Email"},
             responses = {
@@ -39,7 +40,8 @@ public class EmailController {
     public List<EmailVO> findAll() {
         return service.findAll();
     }
-    @GetMapping("/{id}")
+
+    @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
     @Operation(
             summary = "Find a email by ID.", description = "Find a email by ID.", tags = {"Email"},
             responses = {
@@ -59,7 +61,11 @@ public class EmailController {
     public EmailVO findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }
-    @PostMapping
+
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YAML},
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Create a email.", description = "Create a email.", tags = {"Email"},
             responses = {
@@ -77,7 +83,9 @@ public class EmailController {
     public EmailVO save(@RequestBody EmailVO emailVO) {
         return service.save(emailVO);
     }
-    @PutMapping
+
+    @PutMapping(consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML},
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Update a email.", description = "Update a email.", tags = {"Email"},
             responses = {
@@ -95,6 +103,7 @@ public class EmailController {
     public EmailVO update(@RequestBody EmailVO emailVO) {
         return service.update(emailVO);
     }
+
     @DeleteMapping("/{id}")
     @Operation(
             summary = "Deletes a email by ID.", description = "Deletes a email by ID.", tags = {"Email"},

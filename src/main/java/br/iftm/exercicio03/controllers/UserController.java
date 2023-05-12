@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -21,7 +22,8 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @GetMapping
+
+    @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Find all users.", description = "Find all users.", tags = {"User"},
             responses = {
@@ -40,7 +42,7 @@ public class UserController {
         return service.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping( value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Find a user by ID.", description = "Find a user by ID.", tags = {"User"},
             responses = {
@@ -61,8 +63,7 @@ public class UserController {
         return service.findById(id);
     }
 
-
-    @GetMapping("group/{name}")
+    @GetMapping(value = "group/{name}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Find a user by Group.", description = "Find a user by Group.", tags = {"User"},
             responses = {
@@ -83,7 +84,11 @@ public class UserController {
         return service.findByGroupName(groupName);
     }
 
-    @PostMapping
+
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YAML},
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Create a user.", description = "Create a user.", tags = {"User"},
             responses = {
@@ -102,7 +107,9 @@ public class UserController {
         return service.save(userVO);
     }
 
-    @PutMapping
+
+    @PutMapping(consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML},
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML} )
     @Operation(
             summary = "Update a user.", description = "Update a user.", tags = {"User"},
             responses = {
@@ -122,7 +129,7 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Deletes a User by ID.", description = "Deletes a User by ID.", tags = {"User"},
             responses = {

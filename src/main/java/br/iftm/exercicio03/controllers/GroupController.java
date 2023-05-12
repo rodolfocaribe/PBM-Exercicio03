@@ -20,7 +20,7 @@ public class GroupController {
     @Autowired
     GroupService service;
 
-    @GetMapping
+    @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Find allgroups.", description = "Find all users.", tags = {"Group"},
             responses = {
@@ -39,7 +39,7 @@ public class GroupController {
         return service.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping( value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Find a group by ID.", description = "Find a group by ID.", tags = {"Group"},
             responses = {
@@ -60,8 +60,10 @@ public class GroupController {
         return service.findById(id);
     }
 
-    @PostMapping
-    @Operation(
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YAML},
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})    @Operation(
             summary = "Create a group.", description = "Create a group.", tags = {"Group"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
@@ -79,7 +81,10 @@ public class GroupController {
         return service.save(groupVO);
     }
 
-    @PostMapping("insert-users")
+    @PostMapping(value = "insert-users", consumes = {MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YAML},
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Insert users in a group.", description = "Insert users in a group.", tags = {"Group"},
             responses = {
@@ -98,8 +103,8 @@ public class GroupController {
         return service.insertUsers(groupVO);
     }
 
-    @PutMapping
-    @Operation(
+    @PutMapping(consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML},
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML} )    @Operation(
             summary = "Update a group.", description = "Update a group.", tags = {"Group"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
